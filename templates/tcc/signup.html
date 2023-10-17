@@ -1,0 +1,18 @@
+<!DOCTYPE htmk>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Signup</title>
+    </head>
+    <body>
+        <h3>Enter your information</h3>
+        <form action="/signup" method="post">
+        {% csrf_token %}
+            <input placeholder="Username" name="username" id="username">
+            <input placeholder="Email" name="email" id="email">
+            <input placeholder="Password" name="password" id="password">
+            <button type="submit">Sign up</button>
+        </form>
+    </body>
+
+</html>
