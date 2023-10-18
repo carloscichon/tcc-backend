@@ -5,9 +5,14 @@
         <title>TCC</title>
     </head>
     <body>
-        <h3>aloha</h3>    
+        {% if user.is_authenticated %}
+        <h3>aloha, {{ username }}</h3>
+        <button type="submit"> <a href="/signout">Signout</a></button>
+        {% else %}
+        <h3>aloha</h3>
         <button type="submit"> <a href="/signup">Signup</a></button>
         <button type="submit"> <a href="/signin">Signin</a></button>
+        {% endif %}
     </body>
 
 </html>

@@ -5,6 +5,14 @@
         <title>Signup</title>
     </head>
     <body>
+        {% if error %}
+        <div class="alert alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
         <h3>Enter your information</h3>
         <form action="/signup" method="post">
         {% csrf_token %}
