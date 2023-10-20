@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -39,7 +40,7 @@ def signin(request):
         user = authenticate(username=username, password=passwd)
         if user is not None:
             login(request, user)
-            return render(request, "tcc/index.html", {'username': username})
+            return redirect("home")
         else:
             messages.error(request, "Credenciais erradas.")
             return redirect("home")

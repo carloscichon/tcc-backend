@@ -1,4 +1,4 @@
-<!DOCTYPE htmk>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -6,8 +6,12 @@
     </head>
     <body>
         {% if user.is_authenticated %}
-        <h3>aloha, {{ username }}</h3>
+        <h3>aloha, {{ user.username }}</h3>
         <button type="submit"> <a href="/signout">Signout</a></button>
+        <br>
+        <button type="submit"><a href="/rooms">View your rooms</a></button>
+        or
+        <button type="submit"> <a href="/rooms/newroom"> Create a room</a></button>
         {% else %}
         <h3>aloha</h3>
         <button type="submit"> <a href="/signup">Signup</a></button>

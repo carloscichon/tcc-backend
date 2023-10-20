@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> {{ room.name }} </title>
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        function autorefresh() {
+            setInterval('refreshPage()', 10000);
+        }
+        function refreshPage(){
+            $.ajax({
+                url: '{% url 'room' room.slug %}',
+                success: function(room) {
+                    $('#roominfo').html(room);
+                }
+            });
+        }
+    </script>
+    <script>autorefresh()</script>
+    <body id="roominfo">
+        <h3>{{ room.name }} </h3>
+        <h4>Active members: {{ room.active_members }}</h2>
+    </body>
+
+</html>

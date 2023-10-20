@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TCC</title>
+    </head>
+    <body>
+        {% if rooms %}
+        <ul>
+            {% for room in rooms %}
+            <li><a href="{% url 'room' room.slug %}"> {{ room.name }}</a></li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h3>You have not created any room.</h3>
+        {% endif %}
+    </body>
+
+</html>

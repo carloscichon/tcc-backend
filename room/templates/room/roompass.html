@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Signup</title>
+        <title>Password</title>
     </head>
     <body>
         {% if error %}
@@ -13,13 +13,11 @@
             </button>
         </div>
         {% endif %}
-        <h3>Enter your information</h3>
-        <form action="/signup" method="post">
+        <h3>Enter the room password</h3>
+        <form action="#" method="post">
         {% csrf_token %}
-            <input placeholder="Username" name="username" id="username">
-            <input placeholder="Email" name="email" id="email">
-            <input placeholder="Password" name="password" id="password">
-            <button type="submit">Sign up</button>
+            <input placeholder="Room password" name="rpasswd" id="rpasswd">
+            <button type="submit">Enter room</button>
         </form>
     </body>
 
