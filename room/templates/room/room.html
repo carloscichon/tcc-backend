@@ -6,6 +6,18 @@
     </head>
     <body>
         <h3>{{ room.name }} </h3>
+        <div class="col s6">
+            <div class="card">
+                <div class="card-content center-align">
+                    <h4 class="center"><u>Live Video</u></h4>
+                    <video id="video" width="600" height="450" autoplay></video>
+                    <canvas id="canvas" width="600" height="450" class="hide"></canvas>
+                    <button type="button" class="btn" id="start-stream" style="margin-bottom: 10px">Start Face Detection
+                    </button>
+                    <canvas id="detect-data" width="600" height="450"></canvas>
+                </div>
+            </div>
+        </div>
     </body>
     <script language="JavaScript">
         window.onunload = function(evt) {
@@ -15,6 +27,24 @@
             formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
             navigator.sendBeacon(endpoint, formData);
         };
+    </script>
+    <script>
+        let video = document.getElementById('video');
+        let canvas = document.getElementById('canvas');
+        let context = canvas.getContext('2d');
+        let draw_canvas = document.getElementById('detect-data');
+        let draw_context = draw_canvas.getContext('2d');
+        let image = new Image();
+        navigator.mediaDevices
+            .getUserMedia({video:true})
+            .then((stream) => {
+                video.srcObject = stream;
+                video.play();
+            /* use the stream */
+        })
+        .catch((err) => {
+            /* handle the error */
+        });
     </script>
 
 </html>
