@@ -38,13 +38,32 @@
         navigator.mediaDevices
             .getUserMedia({video:true})
             .then((stream) => {
-                video.srcObject = stream;
-                video.play();
+                var videoDevice = stream.getVideoTracks()[0];
+                console.log(videoDevice);
+                var captureDevice = new ImageCapture(videoDevice);
+                //console.log(new ImageCapture(videoDevice));
+                //console.log("oiiiiiiiii");
+                console.log(captureDevice);
+                var frameVar;
+                if(captureDevice){
+                    console.log("oii2");
+                    frameVar = setInterval(captureDevice.grabFrame().then(processFrame()), 1000);
+                }
+                else {
+                    console.log("oii3");
+                }
+                //video.srcObject = stream;
+                //video.play();
             /* use the stream */
         })
         .catch((err) => {
+            console.log(err);
             /* handle the error */
         });
+        function processFrame(e){
+            imgData = e.imageData;
+            console.log("top");
+        }
     </script>
 
 </html>
