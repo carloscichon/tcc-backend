@@ -12,9 +12,6 @@
                     <h4 class="center"><u>Live Video</u></h4>
                     <video id="video" width="600" height="450" autoplay></video>
                     <canvas id="canvas" width="600" height="450" class="hide"></canvas>
-                    <button type="button" class="btn" id="start-stream" style="margin-bottom: 10px">Start Face Detection
-                    </button>
-                    <canvas id="detect-data" width="600" height="450"></canvas>
                 </div>
             </div>
         </div>
@@ -29,41 +26,48 @@
         };
     </script>
     <script>
+        var canvas2 = document.createElement("canvas")
         let video = document.getElementById('video');
-        let canvas = document.getElementById('canvas');
-        let context = canvas.getContext('2d');
-        let draw_canvas = document.getElementById('detect-data');
-        let draw_context = draw_canvas.getContext('2d');
-        let image = new Image();
         navigator.mediaDevices
             .getUserMedia({video:true})
             .then((stream) => {
-                var videoDevice = stream.getVideoTracks()[0];
-                console.log(videoDevice);
-                var captureDevice = new ImageCapture(videoDevice);
-                //console.log(new ImageCapture(videoDevice));
-                //console.log("oiiiiiiiii");
-                console.log(captureDevice);
-                var frameVar;
-                if(captureDevice){
-                    console.log("oii2");
-                    frameVar = setInterval(captureDevice.grabFrame().then(processFrame()), 1000);
-                }
-                else {
-                    console.log("oii3");
-                }
-                //video.srcObject = stream;
-                //video.play();
+                video.srcObject = stream;
+                video.play();
             /* use the stream */
         })
         .catch((err) => {
             console.log(err);
             /* handle the error */
         });
-        function processFrame(e){
-            imgData = e.imageData;
-            console.log("top");
-        }
+        setInterval('onCapture()', 5000);
+
+        function onCapture() {
+        var video = document.querySelector("video");
+        console.log(new Date(), "capture", video.videoWidth, video.videoHeight)
+        canvas2.width = video.videoWidth;
+        canvas2.height = video.videoHeight;
+        canvas2
+            .getContext("2d")
+            .drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+
+        canvas2.toBlob(async (blob) => {
+            {
+            const a = document.createElement('a') // Create "a" element
+            const url = URL.createObjectURL(blob) // Create an object URL from blob
+            var img = new Image();
+            img.src = url;
+            document.body.appendChild(img);      
+            };
+        });
+        baseImage = canvas2.toDataURL();
+        console.log(baseImage);
+        const dst = "sendFrame/";
+        var formDataImg = new FormData()
+        formDataImg.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        formDataImg.append('baseImage', baseImage);
+        navigator.sendBeacon(dst, formDataImg);
+
+}
     </script>
 
 </html>
