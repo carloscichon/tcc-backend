@@ -3,7 +3,9 @@ from PIL import Image
 import binascii
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from .models import Room
+from .classification import process_image
 # Create your views here.
 
 @login_required
@@ -57,13 +59,12 @@ def image(request, slug):
     if request.method == "POST":
         base_image = request.POST['baseImage']
         base_image_cut = base_image[22:]
-        print("oi")
         try:
             img = base64.b64decode(base_image_cut)
         except binascii.Error as error:
             print(error)
             
-        with open("teste.png", "wb+") as file:
-            file.write(img)
-        #print(img)
-        img.save('teste.png')
+        #with open("teste.png", "wb+") as file:
+        #    file.write(img)
+        process_image(img)
+        return HttpResponse("Image received.")
