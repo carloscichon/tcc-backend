@@ -5,8 +5,24 @@
         <title> {{ room.name }} </title>
     </head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script language="JavaScript">
+        if({{ room.state }} == 2){
+            var sbutton = document.getElementById("start");
+            if(sbutton){
+                sbutton.hidden=true;
+            }
+        }
+        window.onunload = function(evt) {
+            const endpoint = 'leave/';
+            var formData = new FormData();
+        //Required by Django for form post
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            navigator.sendBeacon(endpoint, formData);
+        };
+    </script>    
     <script>
         function autorefresh() {
+            console.log("hey")
             setInterval('refreshPage()', 60000);
         }
         function refreshPage(){
@@ -17,11 +33,21 @@
                 }
             });
         }
+        function start() {
+            console.log("start");
+            var sbutton = document.getElementById("start");
+            sbutton.hidden=true;
+            const endpoint = 'start/';
+            var formData = new FormData();
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            navigator.sendBeacon(endpoint, formData);
+        }
     </script>
     <script>autorefresh()</script>
     <body id="roominfo">
         <h3>{{ room.name }} </h3>
         <h4>Active members: {{ room.active_members }}</h2>
+        <button id="start" type="button" onclick="start()">Start</button>
     </body>
 
 </html>

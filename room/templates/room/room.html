@@ -26,6 +26,7 @@
         };
     </script>
     <script>
+        var moment = 1;
         var canvas2 = document.createElement("canvas")
         let video = document.getElementById('video');
         navigator.mediaDevices
@@ -62,13 +63,15 @@
             };
         });
         baseImage = canvas2.toDataURL();
-        console.log(baseImage);
         const dst = "sendFrame/";
         var formDataImg = new FormData()
         formDataImg.append('csrfmiddlewaretoken', '{{ csrf_token }}');
         formDataImg.append('baseImage', baseImage);
+        formDataImg.append('moment', moment);
+        formDataImg.append('in_room', {{ room_id }})
         navigator.sendBeacon(dst, formDataImg);
-
+        moment = moment + 1;
+        console.log("Mandei imagem\n");
 }
     </script>
 
