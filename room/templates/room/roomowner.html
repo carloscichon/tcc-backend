@@ -4,6 +4,8 @@
         <meta charset="utf-8">
         <title> {{ room.name }} </title>
     </head>
+    {{ room.name|json_script:"json-roomname" }}
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script language="JavaScript">
         if({{ room.state }} == 2){
@@ -21,10 +23,27 @@
         };
     </script>    
     <script>
+        const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
+            const roomSocket = new WebSocket(
+            'ws://' + window.location.host +
+            '/ws/' +  roomName  +
+            '/'
+            );
+        
+        roomSocket.onmessage = function(evt) {
+            console.log("Recebido");
+            const data = JSON.parse(evt.data);
+            if (data.message == "nm"){
+                console.log("novo membro");
+                refreshPage();
+            }
+        };
+
         function autorefresh() {
             console.log("hey")
-            setInterval('refreshPage()', 60000);
+            //setInterval('refreshPage()', 60000);
         }
+
         function refreshPage(){
             $.ajax({
                 url: '{% url 'room' room.slug %}',
@@ -34,6 +53,10 @@
             });
         }
         function start() {
+            roomSocket.send(JSON.stringify({
+                'message': 'Started',
+                'room': roomName,   
+            }));
             console.log("start");
             var sbutton = document.getElementById("start");
             sbutton.hidden=true;
@@ -43,6 +66,7 @@
             navigator.sendBeacon(endpoint, formData);
         }
     </script>
+
     <script>autorefresh()</script>
     <body id="roominfo">
         <h3>{{ room.name }} </h3>

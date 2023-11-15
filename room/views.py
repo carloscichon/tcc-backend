@@ -17,10 +17,10 @@ def rooms(request):
 def room(request, slug):
     room = Room.objects.get(slug=slug)
     if request.user == room.owner:
-        if room.state == State.OFFLINE:
-            Moment.objects.filter(room=room).delete()
-            room.state = State.WAITING
-            room.save()
+        #if room.state == State.OFFLINE:
+        Moment.objects.filter(room=room).delete()
+        room.state = State.WAITING
+        room.save()
         return render(request, 'room/roomowner.html', {'room': room})
     if request.method == "POST":
         passwd = request.POST['rpasswd']
