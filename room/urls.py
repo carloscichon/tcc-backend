@@ -8,5 +8,6 @@ urlpatterns = [
     path('<slug:slug>/leave/', views.leave, name='leave'),
     path('<slug:slug>/sendFrame/', views.image, name='image'),
     path('<slug:slug>/start/', views.start, name='start'),
+    path('<slug:slug>/avgExp/', views.getAvgExp, name='avgExp'),
 
 ]

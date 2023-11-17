@@ -19,14 +19,6 @@
     {{ room.name|json_script:"json-roomname" }}
 
     <script language="JavaScript">
-        window.onunload = function(evt) {
-            const endpoint = 'leave/';
-            var formData = new FormData();
-        //Required by Django for form post
-            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
-            navigator.sendBeacon(endpoint, formData);
-        };
-
         const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
         const roomSocket = new WebSocket(
             'ws://' 
@@ -35,7 +27,20 @@
             + roomName
             + '/'
         );
-        
+
+        window.onunload = function(evt) { //doesnt consider turning back pages
+            const endpoint = 'leave/';
+            var formData = new FormData();
+        //Required by Django for form post
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            navigator.sendBeacon(endpoint, formData);
+            roomSocket.send(JSON.stringify({
+                'message': 'ml', //ml means for member leaves
+                'room': roomName,   
+            }));
+
+        };
+ 
         roomSocket.onmessage = function(evt) {
             console.log("aaaa");
             const data = JSON.parse(evt.data);
@@ -43,9 +48,6 @@
                 setInterval('onCapture()', 5000);
             }
         };
-
-    </script>
-    <script>
         var moment = 1;
         var canvas2 = document.createElement("canvas")
         let video = document.getElementById('video');
@@ -66,8 +68,6 @@
             /* handle the error */
         });
 
-        
-        
         function onCapture() {
         var video = document.querySelector("video");
         console.log(new Date(), "capture", video.videoWidth, video.videoHeight)

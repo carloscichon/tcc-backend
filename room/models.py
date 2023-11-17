@@ -15,6 +15,8 @@ class Room(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     active_members = models.IntegerField(default=0)
     state = models.IntegerField(default=State.OFFLINE, choices=State.choices)
+    avgExp = models.CharField(max_length=20, default="None")
+    currentMoment = models.IntegerField(default=1)
 
 class Moment(models.Model):
     time = models.IntegerField(default=0)

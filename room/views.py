@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import Room, Moment, State
 from .classification import process_image, teste
+from statistics import mode
+
 # Create your views here.
 
 @login_required
@@ -17,10 +19,12 @@ def rooms(request):
 def room(request, slug):
     room = Room.objects.get(slug=slug)
     if request.user == room.owner:
-        #if room.state == State.OFFLINE:
-        Moment.objects.filter(room=room).delete()
-        room.state = State.WAITING
-        room.save()
+        if room.state == State.OFFLINE:
+            Moment.objects.filter(room=room).delete()
+            room.state = State.WAITING
+            room.avgExp = "None"
+            room.currentMoment = 1
+            room.save()
         return render(request, 'room/roomowner.html', {'room': room})
     if request.method == "POST":
         passwd = request.POST['rpasswd']
@@ -97,3 +101,19 @@ def start(request, slug):
         room.save()
         return HttpResponse("Room started.")
     return HttpResponse("Could not start.")
+
+@login_required
+def getAvgExp(request, slug):
+    room = Room.objects.get(slug=slug)
+    if request.method == "POST":
+        moments = Moment.objects.filter(room=room, time=room.currentMoment)
+        exps = []
+        for m in moments:
+            exps.append(m.expression)
+        #print(moments)
+        print(mode(exps))
+        room.avgExp = mode(exps)
+        room.currentMoment = room.currentMoment + 1
+        room.save()
+        
+    return HttpResponse("Yeah")
