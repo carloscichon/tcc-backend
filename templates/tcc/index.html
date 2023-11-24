@@ -3,19 +3,41 @@
     <head>
         <meta charset="utf-8">
         <title>TCC</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/base.css">
+        <link rel="stylesheet" href="static/css/index.css">
+
     </head>
     <body>
         {% if user.is_authenticated %}
-        <h3>aloha, {{ user.username }}</h3>
-        <button type="submit"> <a href="/signout">Signout</a></button>
-        <br>
-        <button type="submit"><a href="/rooms">View your rooms</a></button>
-        or
-        <button type="submit"> <a href="/rooms/newroom"> Create a room</a></button>
+        <h1>Bem vindo(a), {{ user.username }}!</h1>
+        <button type="submit" class="btn btn-sm signout"> <a href="/signout">Sair</a></button>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-lg"><a href="/rooms">Minhas salas</a></button>
+                        </div>
+                        <div class="col-sm">
+                            <h4>ou</h4> 
+                        </div>
+                        <div class="col-sm">
+                            <button type="submit" class="btn btn-lg"> <a href="/rooms/newroom">Criar uma sala</a></button>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                </div>
+            </div>
+          </div>
         {% else %}
-        <h3>aloha</h3>
-        <button type="submit"> <a href="/signup">Signup</a></button>
-        <button type="submit"> <a href="/signin">Signin</a></button>
+        <h1>Bem vindo(a)!</h1>
+        <button type="submit" class="btn btn-lg"> <a href="/signup">Cadastre-se</a></button>
+        <button type="submit" class="btn btn-cad btn-lg"> <a href="/signin">Entrar</a></button>
         {% endif %}
     </body>
 

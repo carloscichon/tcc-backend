@@ -3,15 +3,24 @@
     <head>
         <meta charset="utf-8">
         <title>Signin</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="static/css/base.css">
+        <link rel="stylesheet" href="static/css/signup.css">
     </head>
     <body>
-        <h3>Enter your information</h3>
-        <form action="/signin" method="post">
-        {% csrf_token %}
-            <input placeholder="Username" name="username" id="username">
-            <input placeholder="Password" name="password" id="password">
-            <button type="submit">Sign up</button>
-        </form>
+        <h1>Entrar</h1>
+        <div class="border">
+            <h2>Insira suas informações</h2>
+            <form action="/signin" method="post">
+            {% csrf_token %}
+                <input placeholder="Username" name="username" id="username">
+                <br>
+                <input placeholder="Senha" name="password" id="password">
+                <br>
+                <button type="submit" class="btn btn-lg">Entrar</button>
+            </form>
+        </div>
+        
     </body>
 
 </html>

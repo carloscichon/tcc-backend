@@ -1,0 +1,46 @@
+.btn {
+    background-color: #ab0357;
+    color: white;
+    border-color: #ab0357;
+    margin-bottom: 1%;
+    margin-right: 0.5%;
+    margin-left: 0.5%;
+}
+
+.btn:hover {
+    background-color: #8f0349;
+    border-color: #8f0349;
+}
+
+.btn a{
+    color: white;
+    text-decoration: none;
+}
+
+.btn-cad {
+    background-color: white;
+    color:#ab0357;
+    border: 5px 5px 5px 5px;
+    border-color: #ab0357;
+}
+
+.btn-cad:hover{
+    background-color: gainsboro;
+}
+
+.btn-cad a {
+    color: #ab0357;
+    text-decoration: none;
+}
+
+.signout {
+    margin-top: 1%;
+    margin-right: 1%;
+    position:absolute;
+    top:0;
+    right:0;
+}
+
+h4{
+    margin-top: 4%;
+}
