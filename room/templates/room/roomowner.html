@@ -30,6 +30,13 @@
             formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
             navigator.sendBeacon(endpoint, formData);
         };
+        window.onpopstate =  function(evt) {
+            const endpoint = 'leave/';
+            var formData = new FormData();
+        //Required by Django for form post
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            navigator.sendBeacon(endpoint, formData);
+        };
 
         const roomName = JSON.parse(document.getElementById('json-roomname').textContent);
             const roomSocket = new WebSocket(

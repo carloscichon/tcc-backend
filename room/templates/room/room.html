@@ -42,7 +42,18 @@
                 'message': 'ml', //ml means for member leaves
                 'room': roomName,   
             }));
+        };
 
+        window.onpopstate = function(evt) {
+            const endpoint = 'leave/';
+            var formData = new FormData();
+        //Required by Django for form post
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+            navigator.sendBeacon(endpoint, formData);
+            roomSocket.send(JSON.stringify({
+                'message': 'ml', //ml means for member leaves
+                'room': roomName,   
+            }));
         };
  
         roomSocket.onmessage = function(evt) {
