@@ -1,8 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title> {{ room.name }} </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
     </head>
     {{ room.name|json_script:"json-roomname" }}
 
@@ -84,11 +88,11 @@
     </script>
 
     <body id="roominfo">
-        <h3>{{ room.name }} </h3>
-        <h4>Active members: {{ room.active_members }}</h2>
-        <button id="start" type="button" onclick="start()">Start</button>
+        <h1>{{ room.name }} </h1>
+        <h2>Participantes: {{ room.active_members }}</h2>
+        <button id="start" class="btn btn-lg"type="button" onclick="start()">Iniciar</button>
         <br>
-        <h4 id="avg" hidden="true"> Average Expression: {{ room.avgExp }}</h4>
+        <h4 id="avg" hidden="true">Expressão média: {{ room.avgExp }}</h4>
     </body> 
 
 </html>

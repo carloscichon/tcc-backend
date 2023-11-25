@@ -17,17 +17,21 @@
             </button>
         </div>
         {% endif %}
-        <h3>Enter the room information</h3>
-        <form action="#" method="post">
-        {% csrf_token %}
-            <input placeholder="Room name" name="rname" id="rname">
-            <br>
-            <input placeholder="Room code" name="rcode" id="rcode">
-            <br>
-            <input placeholder="Room password" name="rpasswd" id="rpasswd">
-            <br>
-            <button type="submit">Create room</button>
-        </form>
+        <h1>Nova Sala</h1>
+        <div class="border">
+            <h2>Insira as informações da sala</h2>
+            <form action="#" method="post">
+            {% csrf_token %}
+                <input placeholder="Nome da sala" name="rname" id="rname">
+                <br>
+                <input placeholder="Código da sala" name="rcode" id="rcode">
+                <br>
+                <input placeholder="Senha da sala" name="rpasswd" id="rpasswd">
+                <br>
+                <button type="submit" class="btn btn-lg">Criar Sala</button>
+            </form>
+        </div>
+        
     </body>
 
 </html>

@@ -1,18 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>TCC</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/rooms.css' %}">
+
     </head>
     <body>
+        <h1>Suas salas</h1>
         {% if rooms %}
-        <ul>
-            {% for room in rooms %}
-            <li><a href="{% url 'room' room.slug %}"> {{ room.name }}</a></li>
-            {% endfor %}
-        </ul>
+        <div class="container">
+            <div class="row">
+                {% for room in rooms %}
+                <div class="col-sm">
+                    <div class="card">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ room.name}}</h5>
+                        <p class="card-text">{{ room.slug }}</p>
+                        <a href="{% url 'room' room.slug %}" class="btn">Acessar</a>
+                        </div>
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+        </div>
         {% else %}
-        <h3>You have not created any room.</h3>
+        <h2>Você ainda não criou nenhuma sala.</h2>
         {% endif %}
     </body>
 

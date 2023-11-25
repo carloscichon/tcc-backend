@@ -16,16 +16,16 @@ def signup(request):
         passwd = request.POST['password']
 
         if User.objects.filter(username=username):
-            return render(request, "tcc/signup.html", {"error":"Username already exists. Please try some other username."})
+            return render(request, "tcc/signup.html", {"error":"Este username já está em uso. Por favor escolha outro."})
 
         if User.objects.filter(email=email):
-            return render(request, "tcc/signup.html", {"error":"Email already in use. Please take some other email."})
+            return render(request, "tcc/signup.html", {"error":"Este email já está em uso. Por favor escolha outro."})
 
         if len(username) > 20:
-            return render(request, "tcc/signup.html", {"error":"Username can not be longer than 20 characters."})
+            return render(request, "tcc/signup.html", {"error":"O Username não pode ter mais de 20 caracteres."})
 
         if len(passwd) < 6:
-            return render(request, "tcc/signup.html", {"error":"Password needs to be at least 6 characters long."})
+            return render(request, "tcc/signup.html", {"error":"A senha precisa ter no mínimo 6 caracteres."})
         
         newuser = User.objects.create_user(username, email, passwd)
         newuser.save()
@@ -42,8 +42,7 @@ def signin(request):
             login(request, user)
             return redirect("home")
         else:
-            messages.error(request, "Credenciais erradas.")
-            return redirect("home")
+            return render(request, "tcc/signin.html", {"error":"Credenciais erradas."})
     return render(request, "tcc/signin.html")
 
 def signout(request):

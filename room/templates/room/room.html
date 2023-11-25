@@ -4,18 +4,20 @@
     <head>
         <meta charset="utf-8">
         <title> {{ room.name }} </title>
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+        <link rel="stylesheet" href="{% static 'css/room.css' %}">
+
     </head>
     <body>
-        <h3>{{ room.name }} </h3>
-        <div class="col s6">
-            <div class="card">
-                <div class="card-content center-align">
-                    <h4 class="center"><u>Live Video</u></h4>
-                    <video id="video" width="600" height="450" autoplay></video>
-                    <canvas id="canvas" width="600" height="450" class="hide"></canvas>
-                </div>
-            </div>
+        <h1>{{ room.name }} </h1>
+        <h2>Captura de Imagens</h2>
+        <div class="videoB">
+            <video id="video" width="600" height="450" autoplay></video>
         </div>
+        <br>
+        <canvas id="canvas" width="600" height="450" class="hide center"></canvas>
+                    
     </body>
     {{ room.name|json_script:"json-roomname" }}
 
