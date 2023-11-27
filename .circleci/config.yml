@@ -1,0 +1,27 @@
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2
+  aws-ecs: circleci/aws-ecs@3.2.0
+  aws-cli: circleci/aws-cli@4.1.1
+
+jobs:
+  tcc-app:
+    steps:
+      - checkout
+workflows:
+  devops-teste:
+    jobs:
+    - tcc-app
+    - aws-ecr/build-and-push-image:
+        repo: "${AWS_RESOURCE_NAME_PREFIX}"
+        tag: "latest"
+        requires:
+          - tcc-app
+    - aws-ecs/deploy-service-update:
+        requires:
+          - aws-ecr/build-and-push-image # only run this job once aws-ecr/build-and-push-image has completed
+        family: "tcc-app-task"
+        cluster: "tcc-app-cluster"
+        service-name: "tcc-app-service"
+        force-new-deployment: true
+        container-image-name-updates: "container=tcc-app-task,tag=latest"

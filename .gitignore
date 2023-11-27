@@ -1,3 +1,4 @@
 affect*
 *.png
 haarcascades/*
+terraform_config/
