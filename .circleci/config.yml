@@ -13,7 +13,7 @@ jobs:
     steps:
       - checkout
 workflows:
-  devops-teste:
+  tcc-teste:
     jobs:
     - tcc-app
     - aws-ecr/build-and-push-image:
