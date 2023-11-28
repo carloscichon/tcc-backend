@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-ber8hzsgs#fx$#e81eqs(hxexw&a)-aj!-&_c$j+ul1gv-arnn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['load-balancer-dev-2051453509.sa-east-1.elb.amazonaws.com']
+ALLOWED_HOSTS = ['load-balancer-dev-166262096.sa-east-1.elb.amazonaws.com']
 
 
 CHANNEL_LAYERS = {
